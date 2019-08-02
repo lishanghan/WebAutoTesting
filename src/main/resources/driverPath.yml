@@ -1,0 +1,8 @@
+
+chromeDriver_win: src/main/resources/dirver/chrome/win/chromedriver.exe
+chromeDriver_linux: src/main/resources/dirver/chrome/linux/chromedriver.exe
+firefoxDriver_win: src/main/resources/dirver/firefox/win/geckodriver.exe
+firefoxDriver_linux: src/main/resources/dirver/firefox/linux/geckodriver.exe
+ieDriver_win: src/main/resources/dirver/ie/iedriver.exe
+phantomjsDriver_win: src/main/resources/dirver/phantomjs/win/phantomjs.exe
+phantomjsDriver_linux: src/main/resources/dirver/phantomjs/linux/phantomjs.exe
