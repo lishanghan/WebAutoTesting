@@ -7,7 +7,7 @@ import org.apache.log4j.PropertyConfigurator;
 
 /*
  * @author lsh
- * @decription 动态生成各个模块中每条用例的日志，运行完之后请到 result/log 目录下查看
+ * @decription 日志配置
  * */
 
 public class LogConfiguration {

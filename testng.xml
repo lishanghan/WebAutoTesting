@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"  >
+
+<!-- thread-count:定义同时启动的浏览器数，parallel="tests":表明每个test都是平级的 -->
+<suite name="Suite" parallel="tests" thread-count="1" >
+
+<!-- 定义测试的浏览器 -->
+<parameter name="browserName" value="chrome" />
+<!-- driver属性文件保存路径 -->
+<parameter name="driverConfigFilePath" value="config/driver.properties" />
+<!-- 定义测试站点 -->
+<parameter name="testURL" value="http://baidu.com/" />
+<!-- 指定进程等待的时间 -->
+<parameter name="sleepTime" value="10000" />
+<!--页面元素10秒不出现的超时时间  -->
+<parameter name="waitPageloadTime" value="10" />
+<!-- 这是alert弹出的时间，单位毫秒 -->
+<parameter name="loadTime" value="10000" />
+
+
+
+  <test name="Test">
+  	<classes>
+  		<class name="com.lsh.testng.WebAutoTestingDemo1" />
+  	</classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

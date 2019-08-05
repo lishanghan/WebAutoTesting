@@ -156,7 +156,7 @@ public class SeleniumUtils {
     }
 
     /**启动浏览器并打开页面*/
-   public void launchBrowser(String browserName,ITestContext context,String testURL,int timeOut){
+   public void openBrowser(String browserName,ITestContext context,String testURL,int timeOut){
 
         SelectBrowser selectBrowser=new SelectBrowser();
         this.dr=selectBrowser.selectBrowserByName(browserName);
@@ -214,6 +214,12 @@ public class SeleniumUtils {
             Assert.fail("期望的文字是：["+text2+"]但找到的文字是：["+text1+"]");
         }
         log.info("测试通过，找到了期待的文字["+text2+"]");
+
+    }
+
+    //判断是否博包含
+    public void isContainText(String text1,String text2){
+
 
     }
 
