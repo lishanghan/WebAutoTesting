@@ -22,10 +22,10 @@ public class WebAutoTestingDemo1 extends BaseCase{
         su.input(BaiduIndex.searchBox,"自动化测试教程");
         su.waitForPageLoading(waitPageloadTime);
         su.click(BaiduIndex.searchButton);
-        su.waitForElementToLoad(waitPageloadTime,By.className("AMUHan"));
-        String actual = su.getText(By.className("AMUHan"));
+        su.waitForElementToLoad(waitElementloadTime,By.xpath("//*[@id=\"1\"]/h3/a/em"));
+        String actual = su.getText(By.xpath("//*[@id=\"1\"]/h3/a/em"));
         log.info("找到的文字为：["+actual+"]");
-        su.isTextCorrect(actual,"自动化测试教程_初学者必看秘笈");
+        su.isTextCorrect(actual,"测试教程");
 
 
 

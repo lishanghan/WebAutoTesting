@@ -20,7 +20,7 @@ public class BaseCase {
 
     public SeleniumUtils su;
     public String url;
-    public int loadTime;
+    public int waitElementloadTime;
     public int waitPageloadTime;
     public int sleeptime;
     public ITestContext context;
@@ -33,10 +33,10 @@ public class BaseCase {
         su = new SeleniumUtils();
         String browserName=context.getCurrentXmlTest().getParameter("browserName");
         url = context.getCurrentXmlTest().getParameter("testURL");
-        loadTime = Integer.valueOf(context.getCurrentXmlTest().getParameter("loadTime"));
+        waitElementloadTime = Integer.valueOf(context.getCurrentXmlTest().getParameter("waitElementloadTime"));
         waitPageloadTime = Integer.valueOf(context.getCurrentXmlTest().getParameter("waitPageloadTime"));
         sleeptime = Integer.valueOf(context.getCurrentXmlTest().getParameter("sleepTime"));
-        su.openBrowser(browserName,context,url,loadTime);
+        su.openBrowser(browserName,context,url,waitPageloadTime);
 
 
 
