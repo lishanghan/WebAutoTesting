@@ -225,7 +225,10 @@ public class SeleniumUtils {
 
     /**获得元素的文本*/
     public String getText(By by){
-        return dr.findElement(by).getText().trim();
+        String text;
+        text = dr.findElement(by).getText().trim();
+        log.info("["+by+"]元素的文字为：["+text+"]");
+        return text;
     }
 
     /**选择下拉列表框操作封装*/

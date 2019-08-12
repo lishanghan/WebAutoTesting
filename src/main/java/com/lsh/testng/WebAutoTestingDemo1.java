@@ -26,7 +26,6 @@ public class WebAutoTestingDemo1 extends BaseCase{
         su.click(BaiduIndex.searchButton);
         su.waitForElementToLoad(waitElementloadTime,BaiduIndex.row);
         String actual = su.getText(BaiduIndex.row);
-        log.info("找到的文字为：["+actual+"]");
         su.isTextCorrect(actual,data.get("expected"));
 
     }

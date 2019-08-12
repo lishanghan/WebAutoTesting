@@ -149,16 +149,14 @@ public class ExtentReporterListener implements IReporter {
                 String desc = result.getMethod().getDescription();
                 Object[] parameters = result.getParameters();
                 String name="";
-                //如果有参数，则使用参数的toString组合代替报告中的name
-                for(Object param:parameters){
-                    name+=param.toString();
-                }
                 if(name.length()>0){
                     if(name.length()>50){
                         name= name.substring(0,49)+"...";
                     }
+                }else if(desc != null || desc != ""){
+                    name = desc;
                 }else{
-                    name = desc;//result.getMethod().getMethodName();
+                    name = result.getMethod().getMethodName();
                 }
                 if(extenttest==null){
                     test = extent.createTest(name);
