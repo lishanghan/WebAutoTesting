@@ -25,4 +25,8 @@
   		<class name="com.lsh.testng.WebAutoTestingDemo1" />
   	</classes>
   </test> <!-- Test -->
+
+	<listeners>
+		<listener class-name="com.lsh.testng.listener.ExtentReporterListener"/>
+	</listeners>
 </suite> <!-- Suite -->

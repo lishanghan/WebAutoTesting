@@ -2,10 +2,8 @@ package com.lsh.testng;
 
 
 import com.lsh.pages.BaiduIndex;
-import com.lsh.utils.SeleniumUtils;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
-import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
 /**
@@ -17,7 +15,7 @@ import org.testng.annotations.Test;
 @Log4j
 public class WebAutoTestingDemo1 extends BaseCase{
 
-    @Test
+    @Test(description = "第一个用例")
     public void test1(){
         su.input(BaiduIndex.searchBox,"自动化测试教程");
         su.waitForPageLoading(waitPageloadTime);
