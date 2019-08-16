@@ -1,6 +1,5 @@
-package com.lsh.testng;
+package com.lsh.testng.test;
 
-import com.lsh.Po.TestCase;
 import com.lsh.utils.LogConfiguration;
 import com.lsh.utils.SeleniumUtils;
 import lombok.extern.log4j.Log4j;

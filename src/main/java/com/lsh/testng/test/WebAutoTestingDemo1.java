@@ -1,4 +1,4 @@
-package com.lsh.testng;
+package com.lsh.testng.test;
 
 
 import com.lsh.pages.BaiduIndex;
@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 @Log4j
-public class WebAutoTestingDemo1 extends BaseCase{
+public class WebAutoTestingDemo1 extends BaseCase {
 
     @Test(dataProvider = "testData",description = "第一个用例")
     public void test1(Map<String,String> data){
