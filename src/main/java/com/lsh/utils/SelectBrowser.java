@@ -16,6 +16,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.Reporter;
 
 @Log4j
 
@@ -33,6 +34,7 @@ public class SelectBrowser {
 		String currentPlateform=properties.getProperty("os.name");
 		log.info("当前操作系统是["+currentPlateform+"]");
 		log.info("启动的浏览器是["+browserName+"]");
+		Reporter.log(("启动的浏览器:["+browserName+"]"));
 		
 		//从driverPaht.yml 配置文件读取各驱动路径
 		YmlConfig yml = YamlUtil.getYml("src/main/resources/driverPath.yml");

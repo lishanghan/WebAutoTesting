@@ -22,7 +22,8 @@
 
   <test name="Test">
   	<classes>
-  		<class name="com.lsh.testng.test.InterfaceAutoTestingDemo" />
+		<class name="com.lsh.testng.test.WebAutoTestingDemo1" />
+  		<!--<class name="com.lsh.testng.test.InterfaceAutoTestingDemo" />-->
   	</classes>
 
   </test> <!-- Test -->

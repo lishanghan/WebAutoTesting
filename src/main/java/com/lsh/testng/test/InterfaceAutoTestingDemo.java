@@ -1,6 +1,7 @@
 package com.lsh.testng.test;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lsh.utils.AssertUtil;
 import com.lsh.utils.ExcelDataProvider;
 import com.lsh.utils.HttpClientUtils;
 import com.lsh.utils.LogConfiguration;
@@ -33,11 +34,13 @@ public class InterfaceAutoTestingDemo {
     @Test(dataProvider = "testData",description = "第一个接口自动化用例")
     public void test1(Map<String,String> data){
         String response = HttpClientUtils.doHttpJsonPost(data.get("testUrl"),data.get("parameter"));
-        JSONObject json = JSONObject.parseObject(response);
-        Integer code = json.getInteger("code");
         Reporter.log("预期结果："+ data.get("expected"));
         Reporter.log("实际结果："+ response);
-        Assert.assertEquals(code,Integer.valueOf(data.get("expected")));
+
+        /*JSONObject json = JSONObject.parseObject(response);
+        Integer code = json.getInteger("code");
+        Assert.assertEquals(code,Integer.valueOf(data.get("expected")));*/
+        AssertUtil.assertContain(data.get("expected"),response);
 
     }
 

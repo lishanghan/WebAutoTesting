@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestContext;
+import org.testng.Reporter;
 
 
 @Log4j
@@ -32,6 +33,7 @@ public class SeleniumUtils {
     public void waitForElementToLoad(int timeout,final By by){
 
         log.info("开始查找元素["+by+"]");
+        Reporter.log("开始查找元素["+by+"]");
         try{
             (new WebDriverWait(dr, timeout)).until(new ExpectedCondition<Boolean>() {
 
@@ -44,9 +46,11 @@ public class SeleniumUtils {
 
         }catch(TimeoutException e){
             log.error("超时"+timeout+"秒之后还没找到元素["+by+"]");
+            Reporter.log("超时"+timeout+"秒之后还没找到元素["+by+"]");
             Assert.fail("超时"+timeout+"秒之后还没找到元素["+by+"]");
         }
         log.info("找到元素["+by+"]");
+        Reporter.log("找到元素["+by+"]");
 
     }
 
@@ -63,8 +67,10 @@ public class SeleniumUtils {
         } catch (Exception e) {
 
             log.error("清除元素["+by+"]上的内容失败");
+            Reporter.log("清除元素["+by+"]上的内容失败");
         }
         log.info("清除元素["+by+"]的内容");
+        Reporter.log("清除元素["+by+"]的内容");
     }
 
 
@@ -75,16 +81,19 @@ public class SeleniumUtils {
         } catch (Exception e) {
             e.printStackTrace();
 
-            log.error("输入["+text+"]到元素["+by+"]");
-            Assert.fail("输入["+text+"]到元素["+by+"]");
+            log.error("输入["+text+"]到元素["+by+"]失败！");
+            Reporter.log("输入["+text+"]到元素["+by+"]失败！");
+            Assert.fail("输入["+text+"]到元素["+by+"]失败！");
         }
         log.info("输入["+text+"]到["+by+"]");
+        Reporter.log("输入["+text+"]到["+by+"]");
 
     }
     /**封装表单提交的方法*/
     public void submit(By by){
         findElelementBy(by).submit();
         log.info("点击了元素：["+by+"]");
+        Reporter.log("点击了元素：["+by+"]");
     }
 
     /**封装点击操作的方法*/
@@ -97,16 +106,18 @@ public class SeleniumUtils {
 
             //StaleElementReferenceException:元素过期异常
         } catch (StaleElementReferenceException e) {
-            log.error("您点击的元素："+by+"不存在");
-            Assert.fail("您点击的"+by+"不存在",e);
-
+            log.error("点击的元素："+by+"不存在");
+            Reporter.log("点击的元素："+by+"不存在");
+            Assert.fail("点击的"+by+"不存在",e);
 
         } catch(Exception e){
             log.error("点击元素["+by+"]失败");
+            Reporter.log("点击元素["+by+"]失败");
             Assert.fail("点击元素["+by+"]失败");
 
         }
         log.info("点击了元素["+by+"]");
+        Reporter.log("点击了元素["+by+"]");
 
     }
 
@@ -120,6 +131,7 @@ public class SeleniumUtils {
         } catch (Exception e) {
             if(System.currentTimeMillis()-startTime>timeOut){
                 log.warn(by+"不可点击");
+                Reporter.log(by+"不可点击");
                 throw new Exception(e);
             }else{
                 Thread.sleep(500);
@@ -138,11 +150,13 @@ public class SeleniumUtils {
         try {
             findElelementBy(by);
             log.info("找到元素["+by+"]了");
+            Reporter.log("找到元素["+by+"]了");
             return true;
 
         } catch (NoSuchElementException e) {
 
             log.error("元素["+by+"]不存在");
+            Reporter.log("元素["+by+"]不存在");
             Assert.fail("元素["+by+"]不存在");
             return false;
         }
@@ -152,6 +166,7 @@ public class SeleniumUtils {
     /**最大化浏览器操作封装*/
     public void maxBrowser(String browserName){
         log.info("最大化"+browserName+"浏览器");
+        Reporter.log("最大化"+browserName+"浏览器");
         dr.manage().window().maximize();
     }
 
@@ -165,6 +180,7 @@ public class SeleniumUtils {
             maxBrowser(browserName);
             waitForPageLoading(timeOut);
             get(testURL);
+            Reporter.log("输入url:"+testURL);
         } catch (TimeoutException e) {
             log.warn("注意！页面没有完全加载出来，请刷新重试！");
             refresh();
@@ -182,12 +198,14 @@ public class SeleniumUtils {
     public void refresh(){
         dr.navigate().refresh();
         log.info("页面刷新成功");
+        Reporter.log("页面刷新成功");
     }
 
 
     /**输入URL的get方法包装*/
     public void get(String testURL){
         log.info("打开测试页面："+testURL);
+        Reporter.log("打开测试页面："+testURL);
         dr.get(testURL);
     }
 
@@ -211,9 +229,11 @@ public class SeleniumUtils {
             Assert.assertEquals(text1, text2);
         } catch (AssertionError e) {
             log.error("期望的文字是：["+text2+"]但找到的文字是：["+text1+"]");
+            Reporter.log("期望的文字是：["+text2+"]但找到的文字是：["+text1+"]");
             Assert.fail("期望的文字是：["+text2+"]但找到的文字是：["+text1+"]");
         }
         log.info("测试通过，找到了期待的文字["+text2+"]");
+        Reporter.log("测试通过，找到了期待的文字["+text2+"]");
 
     }
 
@@ -228,6 +248,7 @@ public class SeleniumUtils {
         String text;
         text = dr.findElement(by).getText().trim();
         log.info("["+by+"]元素的文字为：["+text+"]");
+        Reporter.log("["+by+"]元素的文字为：["+text+"]");
         return text;
     }
 
