@@ -5,6 +5,7 @@ import com.lsh.pages.BaiduIndex;
 import com.lsh.testng.test.BaseCase;
 import com.lsh.utils.ExcelDataProvider;
 import lombok.extern.log4j.Log4j;
+import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.io.IOException;
@@ -27,6 +28,8 @@ public class WebAutoTestingDemo1 extends BaseCase {
         su.click(BaiduIndex.searchButton);
         su.waitForElementToLoad(waitElementloadTime,BaiduIndex.row);
         String actual = su.getText(BaiduIndex.row);
+        Reporter.log("预期结果："+data.get("expected"));
+        Reporter.log("实际结果："+actual);
         su.isTextCorrect(actual,data.get("expected"));
 
     }

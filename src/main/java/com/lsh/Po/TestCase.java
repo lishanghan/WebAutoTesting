@@ -12,14 +12,23 @@ import java.util.Map;
 @Data
 public class TestCase {
 
+    //用例编号
+    private Integer caseNo;
+
+    //接口地址
     private String testUrl;
 
-    private String browserName;
+    //接口请求方式
+    private String method;
 
-    private Map<String,Object> action;
+    //数据格式
+    private String contentType;
 
-    private Map<String,Object> data;
+    //请求参数
+    private String parameter;
 
-    private  String expect;
+    //预期结果
+    private String expected;
+
 
 }

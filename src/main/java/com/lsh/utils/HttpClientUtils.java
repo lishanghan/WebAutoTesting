@@ -13,7 +13,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
-
+import org.testng.Reporter;
 
 
 /**
@@ -59,13 +59,15 @@ public class HttpClientUtils {
 			httpPost.setHeader("Accept", "application/json");
 			httpPost.setEntity(stringEntity); 
 			
-			String beforeTime=DateFormat.getCurrentTime("yyyy-MM-dd HH:mm:ss:SSS");
+			//String beforeTime=DateFormat.getCurrentTime("yyyy-MM-dd HH:mm:ss:SSS");
+            long startTime = System.currentTimeMillis();
 			log.info("***********************************************开始调用接口！******************************************************");
 			log.info("接口请求为："+requestParameters);
 			response=httpClient.execute(httpPost);
-			String afterTime=DateFormat.getCurrentTime("yyyy-MM-dd HH:mm:ss:SSS");
+            long endTime = System.currentTimeMillis();
 			log.info("***********************************************接口调用结束！******************************************************");
-			log.info("接口调用耗时："+DateFormat.timeDifference(beforeTime, afterTime));
+			double takeUpTime = (endTime - startTime) / 1000d;
+			log.info("接口调用耗时(s)："+takeUpTime);
 			httpResponseCode=response.getStatusLine().getStatusCode()+"";
 			if(httpResponseCode.equals("200")){
 				log.info("发送Http请求成功！Http响应状态为：【"+httpResponseCode+"】");
@@ -79,6 +81,10 @@ public class HttpClientUtils {
 			}else{
 				log.error("发送Http请求失败！http响应状态码为【"+httpResponseCode+"】");
 			}
+			Reporter.log("请求URL："+requestURL);
+			Reporter.log("请求方式：post");
+			Reporter.log("接口调用耗时(s)："+ takeUpTime);
+			Reporter.log("接口请求参数："+requestParameters);
 			
 			
 		} catch (ClientProtocolException e) {

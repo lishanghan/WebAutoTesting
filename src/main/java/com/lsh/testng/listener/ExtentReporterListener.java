@@ -10,6 +10,7 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.testng.*;
+import org.testng.annotations.Test;
 import org.testng.xml.XmlSuite;
 
 import java.io.File;
@@ -125,6 +126,116 @@ public class ExtentReporterListener implements IReporter {
 
     private void buildTestNodes(ExtentTest extenttest, IResultMap tests, Status status) {
         //存在父节点时，获取父节点的标签
+        String[] categories = new String[0];
+        if (extenttest != null) {
+            List<TestAttribute> categoryList = extenttest.getModel().getCategoryContext().getAll();
+            categories = new String[categoryList.size()];
+            for (int index = 0; index < categoryList.size(); index++) {
+                categories[index] = categoryList.get(index).getName();
+            }
+        }
+
+        ExtentTest test;
+
+        if (tests.size() > 0) {
+            //调整用例排序，按时间排序
+            Set<ITestResult> treeSet = new TreeSet<>(new Comparator<ITestResult>() {
+                public int compare(ITestResult o1, ITestResult o2) {
+                    return o1.getStartMillis() < o2.getStartMillis() ? -1 : 1;
+                }
+            });
+            treeSet.addAll(tests.getAllResults());
+            for (ITestResult result : treeSet) {
+                Object[] parameters = result.getParameters();
+                String name;
+
+
+                String desc = "";
+                String testName = "";
+                try {
+
+                    //testName = result.getMethod().getMethod().getAnnotation(Test.class).testName();//此方法已经过期 ,不再使用
+                    testName = result.getMethod().getConstructorOrMethod().getMethod().getAnnotation(Test.class).testName();
+                    desc = result.getMethod().getDescription();
+                } catch (RuntimeException e) {
+
+                }
+
+/*                log.debug("测试方法上的@Test注解的testName=" + testName);
+                log.debug("测试方法上的@Test注解的description=" + desc);
+                log.debug("result.getMethod().getMethodName()=" + result.getMethod().getMethodName());
+                log.debug("result.getMethod().getDescription()=" + result.getMethod().getDescription());*/
+
+                name = testName + "(" + desc + ")";
+                if ("".equals(desc) && "".equals(testName)) {
+                    name = result.getMethod().getMethodName();
+
+                }
+
+                if (extenttest == null) {
+                    test = extent.createTest(name);
+                } else {
+                    //作为子节点进行创建时，设置同父节点的标签一致，便于报告检索。
+                    test = extenttest.createNode(name).assignCategory(categories);
+                }
+
+
+                /**
+                 * 参数现在直接使用Reporter.log打印
+                 */
+
+                /*                *//**
+                 * 如果有参数,测试报告中将参数展示出来
+                 *//*
+                String p = "";
+                if (parameters != null && parameters.length > 0) {
+                    for (Object param : parameters) {
+                        p += param.toString();
+                    }
+                }*/
+
+
+ /*               //如果有参数，则使用参数的toString组合代替报告中的name
+                for (Object param : parameters) {
+                    name += param.toString();
+                }
+                if (name.length() > 0) {
+                    if (name.length() > 50) {
+                        name = name.substring(0, 49) + "...";
+                    }
+                } else {
+                    name = result.getMethod().getMethodName();
+                }
+                if (extenttest == null) {
+                    test = extent.createTest(name);
+                } else {
+                    //作为子节点进行创建时，设置同父节点的标签一致，便于报告检索。
+                    test = extenttest.createNode(name).assignCategory(categories);
+                }*/
+                //test.getModel().setDescription(description.toString());
+                //test = extent.createTest(result.getMethod().getMethodName());
+                for (String group : result.getMethod().getGroups())
+                    test.assignCategory(group);
+
+                List<String> outputList = Reporter.getOutput(result);
+                for (String output : outputList) {
+                    //将用例的log输出报告中
+                    test.debug(output);
+                }
+                if (result.getThrowable() != null) {
+                    test.log(status, result.getThrowable());
+                } else {
+                    test.log(status, "Test " + status.toString().toLowerCase() + "ed");
+                }
+
+                test.getModel().setStartTime(getTime(result.getStartMillis()));
+                test.getModel().setEndTime(getTime(result.getEndMillis()));
+            }
+        }
+    }
+
+    /*private void buildTestNodes(ExtentTest extenttest, IResultMap tests, Status status) {
+        //存在父节点时，获取父节点的标签
         String[] categories=new String[0];
         if(extenttest != null ){
             List<TestAttribute> categoryList = extenttest.getModel().getCategoryContext().getAll();
@@ -185,7 +296,7 @@ public class ExtentReporterListener implements IReporter {
                 test.getModel().setEndTime(getTime(result.getEndMillis()));
             }
         }
-    }
+    }*/
 
     private Date getTime(long millis) {
         Calendar calendar = Calendar.getInstance();
