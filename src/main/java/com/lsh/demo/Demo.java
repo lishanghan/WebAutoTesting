@@ -61,27 +61,13 @@ public class Demo {
 
     public static void interfaceDemo(){
 
-        String url = "http://192.168.52.26:8011/main/customer/unencryptdetail";
-        String param = "{\n" +
-                "    \"user\":{\n" +
-                "        \"userid\":\"ae5b49ab-3604-e911-814b-00505696cb23\",\n" +
-                "        \"brokerCode\":\"18836\",\n" +
-                "        \"username\":\"Liujie\",\n" +
-                "        \"fullName\":\"刘杰\",\n" +
-                "        \"deviceId\":\"1123123123132132\",\n" +
-                "        \"images\":\"\"\n" +
-                "    },\n" +
-                "    \"dataId\":\"2faa47f3-b1b7-4224-93ef-f6484af89c73\",\n" +
-                "    \"pageSize\":10,\n" +
-                "    \"brokerCode\":\"18836\",\n" +
-                "    \"userId\":\"ae5b49ab-3604-e911-814b-00505696cb23\",\n" +
-                "    \"page\":1\n" +
-                "}";
+        String url = "http://localhost:8001/user/select2";
+        String param = "{\"sex\":\"男\"}";
 
         String response = HttpClientUtils.doHttpJsonPost(url,param);
         JSONObject json = JSONObject.parseObject(response);
-        Integer code = json.getInteger("code");
-        if(code == 0){
+        Integer status = json.getInteger("status");
+        if(status == 0){
             log.info("接口测试通过");
         }else{
             log.error("接口测试失败");

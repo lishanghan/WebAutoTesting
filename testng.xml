@@ -22,7 +22,7 @@
 
   <test name="Test">
   	<classes>
-  		<class name="com.lsh.testng.WebAutoTestingDemo1" />
+  		<class name="com.lsh.testng.test.WebAutoTestingDemo1" />
   	</classes>
   </test> <!-- Test -->
 

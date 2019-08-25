@@ -1,4 +1,4 @@
-package com.lsh.testng;
+package com.lsh.testng.test;
 
 import com.lsh.Po.TestCase;
 import com.lsh.utils.LogConfiguration;
