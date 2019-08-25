@@ -2,6 +2,7 @@ package com.lsh.testng.test;
 
 
 import com.lsh.pages.BaiduIndex;
+import com.lsh.testng.test.BaseCase;
 import com.lsh.utils.ExcelDataProvider;
 import lombok.extern.log4j.Log4j;
 import org.testng.Reporter;
